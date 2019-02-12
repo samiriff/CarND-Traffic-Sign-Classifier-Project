@@ -28,6 +28,7 @@ The goals / steps of this project are the following:
 [image10]: ./output_images/rotate_aug.png "Rotate Augmentation"
 [image11]: ./output_images/countplot_aug.png "Countplot Augmentation"
 [image12]: ./output_images/tensorboard.png "Tensorboard"
+[image13]: ./output_images/training_progress.png "Training Progress"
 
 ## Rubric Points
 ### Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/481/view) individually and describe how I addressed each point in my implementation.  
@@ -140,27 +141,32 @@ A visual representation of this model based on tensorboard was obtained (with th
 
 #### 3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
 
-To train the model, I used an ....
+To train the model, I used the following hyperparameter values:
+| Hyperparameter | Value |
+|--|--|
+| Learning Rate  | 0.001 |
+| Number of Epochs | 10  |
+| Batch Size |  128      |
+
+I used the Adam Optimizer to reduce the mean of the cross entropy loss function, using the augmented training set of 51,690 training examples I had obtained earlier. I used the `tqdm` library to monitor training progress, by outputing the validation accuracy and loss on the training set after all the batches in each epoch had been processed, as shown below:
+![training_progress][image13]
 
 #### 4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
 
 My final model results were:
-* training set accuracy of ?
-* validation set accuracy of ? 
-* test set accuracy of ?
+* training set accuracy of 99.7%
+* validation set accuracy of 94.4%
+* test set accuracy of 92.7%
 
-If an iterative approach was chosen:
-* What was the first architecture that was tried and why was it chosen?
-* What were some problems with the initial architecture?
-* How was the architecture adjusted and why was it adjusted? Typical adjustments could include choosing a different model architecture, adding or taking away layers (pooling, dropout, convolution, etc), using an activation function or changing the activation function. One common justification for adjusting an architecture would be due to overfitting or underfitting. A high accuracy on the training set but low accuracy on the validation set indicates over fitting; a low accuracy on both sets indicates under fitting.
-* Which parameters were tuned? How were they adjusted and why?
-* What are some of the important design choices and why were they chosen? For example, why might a convolution layer work well with this problem? How might a dropout layer help with creating a successful model?
+At first, I chose the default LeNet architecture outlined in the lecture videos, and found that the validation accuracy stagnated at around 89-90% after 10 epochs, and didn't vary much even after increasing the number of epochs, although the training accuracy improved, which indicated overfitting. 
 
-If a well known architecture was chosen:
-* What architecture was chosen?
-* Why did you believe it would be relevant to the traffic sign application?
-* How does the final model's accuracy on the training, validation and test set provide evidence that the model is working well?
- 
+Then I tried increasing the batch size to 256 and increasing the number of epochs as well, but the model performed worse than before, with the validation accuracy never going beyond 90%. The training accuracy reached 99.8%, which indicated overfitting.
+
+Increasing the learning rate from 0.001 to 0.01 led to underfitting with a training accuracy of 96.6% and validation accuracy going as low as 86%. Increasing the number of epochs in this case didn't lead to any noticeable improvement because the steps taken during gradient descent were becoming too large due to the higher learning rate. 
+
+After playing around with the hyperparameters, I decided to modify the default LeNet model a bit. Based on the video lectures, I added a new dropout layer to the first fully-connected layer of the network, and I was immediately able to see a marked improvement in the validation accuracy. The dropout layer was preventing overfitting by turning off units in the hidden layer with a probability of 0.25 (or retaining units in the hidden layer with a probability of 0.75). This dropout was applied only on the training set and not the validation and test sets. 
+
+The final validation accuracy I could achieve with this network was 94.4%. 
 
 ### Test a Model on New Images
 
