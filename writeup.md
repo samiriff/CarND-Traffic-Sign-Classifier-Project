@@ -27,6 +27,7 @@ The goals / steps of this project are the following:
 [image9]: ./output_images/brighten_aug.png "Brighten Augmentation"
 [image10]: ./output_images/rotate_aug.png "Rotate Augmentation"
 [image11]: ./output_images/countplot_aug.png "Countplot Augmentation"
+[image12]: ./output_images/tensorboard.png "Tensorboard"
 
 ## Rubric Points
 ### Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/481/view) individually and describe how I addressed each point in my implementation.  
@@ -115,16 +116,27 @@ My final model consisted of the following layers:
 | Layer         		|     Description	        					| 
 |:---------------------:|:---------------------------------------------:| 
 | Input         		| 32x32x3 RGB image   							| 
-| Convolution 3x3     	| 1x1 stride, same padding, outputs 32x32x64 	|
+| Convolution 5x5     	| 1x1 stride, valid padding, outputs 28x28x6    |
+| Bias 6x1				| 							 					|
 | RELU					|												|
-| Max pooling	      	| 2x2 stride,  outputs 16x16x64 				|
-| Convolution 3x3	    | etc.      									|
-| Fully connected		| etc.        									|
-| Softmax				| etc.        									|
-|						|												|
-|						|												|
- 
+| Max pooling	      	| 2x2 stride,  same padding, outputs 14x14x6  	|
+| Convolution 5x5	    | 1x1 stride, valid padding, outputs 10x10x16	|
+| Bias 16x1				| 							 					|
+| RELU					|												|
+| Max pooling	      	| 2x2 stride,  same padding, outputs 14x14x6  	|
+| Flatten				| outputs 400									|
+| Fully connected		| input 400, outputs 120        				|
+| RELU					|												|
+| Dropout				| keep_prob 0.75 for training set				|
+| Fully connected		| input 120, outputs 84	        				|
+| RELU					|												|
+| Fully connected		| input 84, outputs 10	        				|
+| Softmax 				| outputs probabilities for each image class	|
 
+I used the `tf.softmax_cross_entropy_with_logits()` method to determine the cross-entropy of the output of the model, based on the softmax values and the one-hot-encoding of the training set labels. Then I made use of the Adam Optimizer to minimize the mean of the cross-entropy loss obtained earlier. 
+
+A visual representation of this model based on tensorboard was obtained (with the help of the example at https://github.com/tensorflow/tensorflow/blob/master/tensorflow/examples/tutorials/deepdream/deepdream.ipynb) is shown below:
+![tensorboard][image12]
 
 #### 3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
 
