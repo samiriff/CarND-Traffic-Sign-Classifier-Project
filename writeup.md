@@ -38,6 +38,10 @@ The goals / steps of this project are the following:
 [image20]: ./output_images/softmax_test_image_5.png "Softmax test image 5"
 [image21]: ./output_images/softmax_test_image_6.png "Softmax test image 6"
 [image22]: ./output_images/softmax_test_image_7.png "Softmax test image 7"
+[image23]: ./output_images/featuremap_conv2d_0.png "FeatureMap Conv2D 0"
+[image24]: ./output_images/featuremap_relu_0.png "FeatureMap Relu 0"
+[image25]: ./output_images/featuremap_maxpool_0.png "FeatureMap Maxpool 0"
+[image26]: ./output_images/featuremap_pixelated.png "FeatureMap Pixelated"
 
 ## Rubric Points
 ### Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/481/view) individually and describe how I addressed each point in my implementation.  
@@ -251,4 +255,16 @@ For the seventh image, the model is sure that this is a "General Caution" sign (
 ### (Optional) Visualizing the Neural Network (See Step 4 of the Ipython notebook for more details)
 #### 1. Discuss the visual output of your trained network's feature maps. What characteristics did the neural network use to make classifications?
 
+In order to obtain the names of the activation tensors that had to be passed as parameters to the given `outputFeatureMap()` method, I used the helper methods provided in https://github.com/tensorflow/tensorflow/blob/master/tensorflow/examples/tutorials/deepdream/deepdream.ipynb to generate a visualized graph of my model in tensorboard. It was easy to navigate from inputs and outputs of one operation to another, and obtain the names of the tensors. A test image with the label "Speed limit (70km/h)" was considered.
 
+The first convolutional layer (Conv2D:0) was depicted as 6 different grayscale featuremaps, in which the edges of the number 70 and the circle of the signboard could be discerned:
+![featuremap_conv2d_0][image23]
+
+The RELU activation function used on the first convolutional layer (Relu:0) showed a sharper contrasts between the number edges and the circle of the signboard in a few featuremaps:
+![featuremap_relu_0][image24]
+
+The MaxPool function used on the Relu activation output above resulted in the following featuremaps containing pixelated data in which the number edges and circle of the signboard could be somewhat seen:
+![featuremap_maxpool_0][image25]
+
+The remainder of the section tried to visualize the next convolutional layer and its activation function but I wasn't able to make much sense of the feature maps here since they were highly pixelated:
+![featuremap_pixelated][image26]
