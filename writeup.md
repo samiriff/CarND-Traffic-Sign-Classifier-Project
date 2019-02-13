@@ -70,21 +70,21 @@ signs data set:
 
 #### 2. Include an exploratory visualization of the dataset.
 
-I used the Pandas library to analyse the image dataset. After mapping the class IDs to actual sign names (from `signnames.csv`), I found the classes which have the most number of training examples. Then, using the seaborn library, I plotted a countplot to show the distribution of the 43 classes in the training, validation and test sets, and the results are as shown below (Note that only the class IDs are displayed on the X-axes of these plots. Please use `signnames.csv` to find the corresponding sign name):
+I used the Pandas library to analyse the image dataset. After mapping the class IDs to actual sign names (from `signnames.csv`), I found the classes which have the most number of training examples. Then, using the seaborn library, I plotted a countplot to show the distribution of the 43 classes in the training, validation and test sets, and the results are as shown below, along with the top 5 classes for each dataset (Note that only the class IDs are displayed on the X-axes of these plots. Please use `signnames.csv` to find the corresponding sign name):
  - Training Set
  
-	![top_5_sign_names_train][image1]
 	![countplot_train][image4]
+	![top_5_sign_names_train][image1]
 	
  - Validation Set
  
-	 ![top_5_sign_names_valid][image2]
 	![countplot_valid][image5]
+	 ![top_5_sign_names_valid][image2]
 	
  - Test Set 
  
-	![top_5_sign_names_test][image3]
 	![countplot_test][image6]
+	![top_5_sign_names_test][image3]
 
 
 As can be observed in all the plots, the data is pretty skewed with plenty of images in a few classes and a dearth of images in others.
@@ -157,6 +157,7 @@ A visual representation of this model based on tensorboard was obtained (with th
 #### 3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
 
 To train the model, I used the following hyperparameter values:
+
 | Hyperparameter | Value |
 |--|--|
 | Learning Rate  | 0.001 |
@@ -214,11 +215,11 @@ These images are of different widths and heights, unlike the training dataset wh
 - The fourth image contains a "Road work" sign against a noisy background of buildings and clouds in the sky. 
 - The fifth image contains a "Road work" sign against an almost-clear blue sky. 
 - The sixth image contains a "Speed limit (60km/h)" sign with some written text at the bottom against a blue sky. 
-- The sixth image contains a "General caution" sign against a white background with a black band at the bottom.
+- The seventh image contains a "General caution" sign against a white background with a black band at the bottom.
 
 #### 2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
 
-The first step in classifying this test set was to resize the test images to `32 x 32` to make it compatible with the model:
+The first step in classifying this test set was to resize the test images to `32 x 32` to make it compatible with the model, followed by normalization:
 
 ![test_images_resized][image15]
 
