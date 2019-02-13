@@ -226,7 +226,7 @@ Here are the results of the prediction:
 
 | Image			        |     Prediction	        					| 
 |:---------------------:|:---------------------------------------------:| 
-| Speed limit (70km/h)	| Stop sign   									| 
+| Speed limit (70km/h)	| Speed limit (70km/h)   									| 
 | Turn right ahead		| Turn right ahead								|
 | Stop 					| Priority Road									|
 | Road Work	      		| Road Work						 				|
@@ -249,7 +249,7 @@ For the second image, the model is relatively sure that this is a "Turn right ah
 
 ![softmax_test_image_2][image17]
 
-For the third image, the model is certain that this is a "Priority road" sign (probability of 1) but the image contains a "Stop" sign. The top five softmax probabilities are:
+For the third image, the model is certain that this is a "Priority road" sign (probability of 1) but the image contains a "Stop" sign. The reason for this misclassification could be the bad quality of the image and the text of the sign after resizing. The top five softmax probabilities are:
 
 ![softmax_test_image_3][image18]
 
