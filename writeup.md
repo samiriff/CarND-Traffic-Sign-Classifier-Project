@@ -42,6 +42,8 @@ The goals / steps of this project are the following:
 [image24]: ./output_images/featuremap_relu_0.png "FeatureMap Relu 0"
 [image25]: ./output_images/featuremap_maxpool_0.png "FeatureMap Maxpool 0"
 [image26]: ./output_images/featuremap_pixelated.png "FeatureMap Pixelated"
+[image27]: ./output_images/precision.png "Precision"
+[image28]: ./output_images/recall.png "Recall"
 
 ## Rubric Points
 ### Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/481/view) individually and describe how I addressed each point in my implementation.  
@@ -179,7 +181,22 @@ Increasing the learning rate from 0.001 to 0.01 led to underfitting with a train
 
 After playing around with the hyperparameters, I decided to modify the default LeNet model a bit. Based on the video lectures, I added a new dropout layer to the first fully-connected layer of the network, and I was immediately able to see a marked improvement in the validation accuracy. The dropout layer was preventing overfitting by turning off units in the hidden layer with a probability of 0.25 (or retaining units in the hidden layer with a probability of 0.75). This dropout was applied only on the training set and not the validation and test sets. 
 
-The final validation accuracy I could achieve with this network was 94.4%. 
+The final validation accuracy I could achieve with this network was 94.4%. For the test set, I evaluated the accuracy as well as the confusion matrix for all labels, using the `get_precision_recall()` method. The accuracy on the test set was 92.7%. 
+
+The precision, which is the ratio of true positives to the sum of true positives and false positives, on the test set for each class is as shown below: 
+
+![precision][image27]
+
+The recall, which is the ratio of true positives to the sum of true positives and false negatives, on the test set for each class is as shown below:
+
+![recall][image28]
+
+The mean precision was 0.9 and the mean recall was 0.89. Details of the image classes for which the precision and recall were minimum or maximum are given in the table below:
+
+| Metric | Min | Max | Image classes with Min | Image classes with Max |
+|--|--|--|--|--|
+| Precision  | 0.537 | 1.0 | Pedestrians | No entry, Double curve |
+| Recall | 0.483 | 1.0 | Pedestrians | Bicycles crossing, Go straight or right|
 
 ### Test a Model on New Images
 
